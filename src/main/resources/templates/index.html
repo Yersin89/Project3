@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/Header.js"></script>
+    <script src="/js/AddTask.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="header"></div>
+    <div><button class="btn-outline-success" type="button" id="openAddTaskButton">+ Add New Task</button></div>
+    <div id="addTask"></div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>DEADLINE DATE</th>
+            <th>IS COMPLETED</th>
+            <th>DETAILS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}" th:style="${!task.isCompleted} ? 'color: red;' : 'color: black;'"></td>
+            <td th:text="${task.name}" th:style="${!task.isCompleted} ? 'color: red;' : 'color: black;'"></td>
+            <td th:text="${task.deadlineDate}" th:style="${!task.isCompleted} ? 'color: red;' : 'color: black;'"></td>
+            <td th:text="${task.isCompleted} ? 'Yes' : 'No'" th:style="${!task.isCompleted} ? 'color: red;' : 'color: black;'"></td>
+            <td><a href="#" class="btn btn-primary">DETAILS</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <span th:if="${previousPage != null}">
+            <a th:href="${previousPage}">Previous</a>
+        </span>
+        <span th:each="i, iterStat : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="${pages[iterStat.index]}" th:text="${i + 1}"></a>
+        </span>
+        <span th:if="${nextPage != null}">
+            <a th:href="${nextPage}">Next</a>
+        </span>
+    </div>
+</div>
+</body>
+</html>
